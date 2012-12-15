@@ -8,13 +8,9 @@ def distanceformat(distance):
 	"""
 	Formats the variable of distance 
 	"""
-	if distance < 100:
-		return '%.0f m' % distance
-	elif distance < 1000:
-		return '%.0f m' % round(distance, -1)
+	rounded = float('%.2g' % distance)
+	m, k = modf(rounded / 1000.0)
+	if k:
+		return '%g km' % k + m
 	else:
-		m, k = modf(distance / 1000.0)
-		if m < 0.1:
-			return '%.0f km' % k
-		else:
-			return '%.1f km' % k + round(m, 1)
+		return '%g m' % rounded
